@@ -61,4 +61,5 @@ public abstract class Display {
         g.drawImage(buffer, 0, 0, null);
 
     }
+
 }
