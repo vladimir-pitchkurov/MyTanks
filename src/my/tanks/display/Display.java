@@ -1,5 +1,7 @@
 package my.tanks.display;
 
+import my.tanks.io.Input;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -18,6 +20,7 @@ public abstract class Display {
     private static int clearColor;
 
     private static BufferStrategy bufferStrategy;
+
 
     //
     private static float delta = 0;
@@ -93,5 +96,9 @@ public abstract class Display {
 
     public static void setTitle(String title){
         window.setTitle(title);
+    }
+
+    public static void addInputListener(Input inputListener){
+        window.add(inputListener);
     }
 }
