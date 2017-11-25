@@ -1,6 +1,7 @@
 package my.tanks.game;
 
 import my.tanks.display.Display;
+import my.tanks.graphics.TextureAtlas;
 import my.tanks.io.Input;
 import my.tanks.utils.Time;
 
@@ -18,12 +19,14 @@ public class Game implements Runnable {
     public static final float UPDATE_RATE = 60.0f;
     public static final float UPDATE_INTERVAL = Time.SECOND / UPDATE_RATE;
     public static final long IDLE_TIME = 1;
+    public static final String FILE_NAME = "texture_atlas.png";
 
     private boolean running;
     private Thread gameThread;
     private Graphics2D graphics;
 
     private Input input;
+    private TextureAtlas atlas;
 
       //temp
     public float x = 350;
@@ -39,6 +42,7 @@ public class Game implements Runnable {
         graphics = Display.getGraphics();
         input = new Input();
         Display.addInputListener(input);
+        atlas = new TextureAtlas(FILE_NAME);
     }
 
     public synchronized void start() {
@@ -83,7 +87,9 @@ public class Game implements Runnable {
         Display.clear();
 
         graphics.setColor(Color.WHITE);
-        graphics.fillOval((int) (x + Math.sin(delta)* 200), (int)y, (int)radius *2, (int)radius *2 );
+
+        graphics.drawImage(atlas.cut(0, 0, 32, 32), 300, 300, null);
+        //graphics.fillOval((int) (x + Math.sin(delta)* 200), (int)y, (int)radius *2, (int)radius *2 );
 
         Display.swapBuffers();
     }
