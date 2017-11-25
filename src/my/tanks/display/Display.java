@@ -43,6 +43,7 @@ public abstract class Display {
         buffer = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         bufferData = ((DataBufferInt) buffer.getRaster().getDataBuffer()).getData();
         bufferGraphics = buffer.getGraphics();
+        ((Graphics2D)bufferGraphics).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);  /*сглаживание*/
 
         clearColor = _clearColor;
 
@@ -58,20 +59,20 @@ public abstract class Display {
         Arrays.fill(bufferData, clearColor);
     }
 
-    public static void render(){
+    /*public static void render(){
         bufferGraphics.setColor(new Color(0xff0000ff));
         bufferGraphics.fillOval((int)( 350 + (Math.sin(delta) * 200)), 250, 100, 100);  //for demo of running..
-        delta += 0.02f;  /*движение круга*/
+        delta += 0.02f;  *//*движение круга*//*
 
-        /*
+        *//*
         Сглаживание: круг №2 размытый по краям. после отрисовки сглаживание отключается чтобы не распространялось на другие объекты
-        */
+        *//*
 
         ((Graphics2D)bufferGraphics).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         bufferGraphics.fillOval((int)( 550 + (Math.sin(delta) * 200)), 250, 100, 100);
-        ((Graphics2D)bufferGraphics).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF); /*off*/
+        ((Graphics2D)bufferGraphics).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF); *//*off*//*
 
-    }
+    }*/
 
     public static void swapBuffers(){
         Graphics g = bufferStrategy.getDrawGraphics();
@@ -80,4 +81,17 @@ public abstract class Display {
 
     }
 
+    public static Graphics2D getGraphics(){
+        return (Graphics2D)bufferGraphics;
+    }
+
+    public static void destroy(){
+        if (!created)return;
+
+        window.dispose();
+    }
+
+    public static void setTitle(String title){
+        window.setTitle(title);
+    }
 }
