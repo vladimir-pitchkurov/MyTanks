@@ -27,6 +27,8 @@ public class Game implements Runnable {
 
     private Input input;
     private TextureAtlas atlas;
+    private SpriteSheet sheet;
+    private Sprite sprite;
 
       //temp
     public float x = 350;
@@ -43,6 +45,8 @@ public class Game implements Runnable {
         input = new Input();
         Display.addInputListener(input);
         atlas = new TextureAtlas(FILE_NAME);
+        sheet = new SpriteSheet(atlas.cut(8*16, 5*16, 16*2, 16), 2, 16);
+        sprite = new Sprite(sheet, 1);
     }
 
     public synchronized void start() {
@@ -86,10 +90,12 @@ public class Game implements Runnable {
     private void render() {
         Display.clear();
 
-        graphics.setColor(Color.WHITE);
+       /* graphics.setColor(Color.WHITE);
 
-        graphics.drawImage(atlas.cut(0, 0, 32, 32), 300, 300, null);
+        graphics.drawImage(atlas.cut(0, 0, 32, 32), 300, 300, null);*/
         //graphics.fillOval((int) (x + Math.sin(delta)* 200), (int)y, (int)radius *2, (int)radius *2 );
+
+        sprite.render(graphics, x, y);
 
         Display.swapBuffers();
     }
