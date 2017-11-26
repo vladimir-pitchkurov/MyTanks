@@ -1,4 +1,4 @@
-package my.tanks.game;
+package my.tanks.graphics;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

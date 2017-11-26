@@ -1,6 +1,8 @@
 package my.tanks.game;
 
 import my.tanks.display.Display;
+import my.tanks.graphics.Sprite;
+import my.tanks.graphics.SpriteSheet;
 import my.tanks.graphics.TextureAtlas;
 import my.tanks.io.Input;
 import my.tanks.utils.Time;
@@ -27,16 +29,8 @@ public class Game implements Runnable {
 
     private Input input;
     private TextureAtlas atlas;
-    private SpriteSheet sheet;
-    private Sprite sprite;
+    private Player player;
 
-      //temp
-    public float x = 350;
-    float y = 250;
-    float delta = 0;
-    float radius = 50;
-    float speed = 3;
-    //temp end
 
     public Game() {
         running = false;
@@ -45,8 +39,8 @@ public class Game implements Runnable {
         input = new Input();
         Display.addInputListener(input);
         atlas = new TextureAtlas(FILE_NAME);
-        sheet = new SpriteSheet(atlas.cut(8*16, 5*16, 16*2, 16), 2, 16);
-        sprite = new Sprite(sheet, 1);
+        player = new Player(300, 300, 1, 3, atlas);
+
     }
 
     public synchronized void start() {
@@ -72,30 +66,13 @@ public class Game implements Runnable {
     }
 
     private void update() {
-        if (input.getKey(KeyEvent.VK_UP)){
-            y -= speed;
-        }
-        if (input.getKey(KeyEvent.VK_DOWN)){
-            y += speed;
-        }
-        if (input.getKey(KeyEvent.VK_LEFT)){
-            x -= speed;
-        }
-        if (input.getKey(KeyEvent.VK_RIGHT)){
-            x += speed;
-        }
-
+            player.update(input);
     }
 
     private void render() {
         Display.clear();
 
-       /* graphics.setColor(Color.WHITE);
-
-        graphics.drawImage(atlas.cut(0, 0, 32, 32), 300, 300, null);*/
-        //graphics.fillOval((int) (x + Math.sin(delta)* 200), (int)y, (int)radius *2, (int)radius *2 );
-
-        sprite.render(graphics, x, y);
+        player.render(graphics);
 
         Display.swapBuffers();
     }
