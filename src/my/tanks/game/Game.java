@@ -71,9 +71,7 @@ public class Game implements Runnable {
 
     private void render() {
         Display.clear();
-
         player.render(graphics);
-
         Display.swapBuffers();
     }
 
