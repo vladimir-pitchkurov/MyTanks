@@ -1,6 +1,7 @@
 package my.tanks.game;
 
 import my.tanks.display.Display;
+import my.tanks.game.level.Level;
 import my.tanks.graphics.Sprite;
 import my.tanks.graphics.SpriteSheet;
 import my.tanks.graphics.TextureAtlas;
@@ -30,6 +31,7 @@ public class Game implements Runnable {
     private Input input;
     private TextureAtlas atlas;
     private Player player;
+    private Level lvl;
 
 
     public Game() {
@@ -39,8 +41,8 @@ public class Game implements Runnable {
         input = new Input();
         Display.addInputListener(input);
         atlas = new TextureAtlas(FILE_NAME);
-        player = new Player(300, 300, 1, 3, atlas);
-
+        player = new Player(300, 300, 2, 3, atlas);
+        lvl = new Level(atlas);
     }
 
     public synchronized void start() {
@@ -67,12 +69,15 @@ public class Game implements Runnable {
 
     private void update() {
             player.update(input);
+            lvl.update();
     }
 
     private void render() {
         Display.clear();
 
+        lvl.render(graphics);
         player.render(graphics);
+        lvl.renderGrass(graphics);
 
         Display.swapBuffers();
     }
